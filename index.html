@@ -1,94 +1,356 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>July 22 BBQ</title>
+
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f3ed;
-      color: #222;
+      padding: 0;
     }
 
-    main {
-      max-width: 720px;
-      margin: auto;
-      padding: 80px 24px;
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(circle at 70% 35%, rgba(255, 180, 140, 0.22), transparent 35%),
+        radial-gradient(circle at 25% 35%, rgba(220, 255, 130, 0.18), transparent 30%),
+        linear-gradient(135deg, #111 0%, #24221f 55%, #111 100%);
+      overflow-x: hidden;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 32px 7vw;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 70px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border: 1px solid #f6d08e;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #f6d08e;
+      font-size: 22px;
+    }
+
+    nav {
+      display: flex;
+      gap: 52px;
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.85;
+    }
+
+    nav a:hover {
+      color: #f6b0aa;
+    }
+
+    .rsvp-top {
+      border: 1px solid #f6d08e;
+      padding: 12px 30px;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .hero {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
     }
 
     h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
+      font-size: clamp(70px, 10vw, 150px);
+      line-height: 0.92;
+      letter-spacing: -4px;
+      margin-bottom: 32px;
+      background: linear-gradient(90deg, #ff9a9e, #f7d794, #b8f26d);
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
-    .date {
-      font-size: 20px;
-      color: #666;
+    .tagline {
+      font-size: clamp(18px, 2vw, 26px);
+      line-height: 1.5;
+      color: #f4f1e8;
       margin-bottom: 40px;
-    }
-
-    section {
-      border-top: 1px solid #ddd;
-      padding: 28px 0;
-    }
-
-    h2 {
-      font-size: 18px;
-      margin-bottom: 12px;
-    }
-
-    p, li {
-      line-height: 1.6;
-      font-size: 16px;
-    }
-
-    ul {
-      padding-left: 20px;
+      max-width: 560px;
     }
 
     .button {
       display: inline-block;
-      margin-top: 16px;
-      padding: 12px 18px;
-      border: 1px solid #222;
-      border-radius: 999px;
+      padding: 18px 44px;
+      border: 1px solid #f6d08e;
+      color: #fff;
       text-decoration: none;
-      color: #222;
+      letter-spacing: 2px;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .button:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    .art {
+      position: relative;
+      min-height: 460px;
+      display: grid;
+      place-items: center;
+    }
+
+    .orbit {
+      position: absolute;
+      width: 520px;
+      height: 190px;
+      border: 2px solid rgba(246, 208, 142, 0.85);
+      border-radius: 50%;
+      transform: rotate(-12deg);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .orbit.two {
+      transform: rotate(18deg);
+      border-color: rgba(255, 154, 158, 0.8);
+      animation-delay: 1s;
+    }
+
+    .orbit.three {
+      transform: rotate(2deg);
+      border-color: rgba(184, 242, 109, 0.75);
+      animation-delay: 2s;
+    }
+
+    .grill {
+      font-size: 190px;
+      filter: drop-shadow(0 0 30px rgba(255, 180, 140, .45));
+      animation: float 5s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    .date-side {
+      position: absolute;
+      right: 0;
+      bottom: 60px;
+      text-align: center;
+      letter-spacing: 5px;
+    }
+
+    .date-side span {
+      display: block;
+      font-size: 82px;
+      line-height: 0.9;
+      background: linear-gradient(90deg, #f7d794, #b8f26d);
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: 0;
+    }
+
+    .plus {
+      position: absolute;
+      right: 0;
+      bottom: -20px;
+      width: 66px;
+      height: 66px;
+      border: 1px solid #f6d08e;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 44px;
+      color: #ffb199;
+    }
+
+    .bottom-bar {
+      margin-top: 60px;
+      border-top: 1px solid rgba(255,255,255,0.25);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .info {
+      padding: 28px 30px;
+      border-right: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .info:last-child {
+      border-right: none;
+    }
+
+    .icon {
+      font-size: 34px;
+    }
+
+    .label {
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: #d9d2c7;
+      margin-bottom: 6px;
+    }
+
+    .value {
+      font-size: 17px;
+      color: #fff;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+      50% { transform: translateY(-14px) rotate(var(--r, 0deg)); }
+    }
+
+    @media (max-width: 900px) {
+      header {
+        margin-bottom: 40px;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .art {
+        min-height: 320px;
+      }
+
+      .orbit {
+        width: 330px;
+        height: 120px;
+      }
+
+      .grill {
+        font-size: 130px;
+      }
+
+      .date-side {
+        position: static;
+        margin-top: 30px;
+      }
+
+      .plus {
+        display: none;
+      }
+
+      .bottom-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .info {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+      }
     }
   </style>
 </head>
+
 <body>
-  <main>
-    <h1>July 22 BBQ</h1>
-    <div class="date">A simple summer cookout with family and friends.</div>
+  <div class="page">
 
-    <section>
-      <h2>Details</h2>
-      <p><strong>Date:</strong> July 22</p>
-      <p><strong>Time:</strong> TBD</p>
-      <p><strong>Location:</strong> TBD</p>
+    <header>
+      <div class="logo">🔥</div>
+
+      <nav>
+        <a href="#">HOME</a>
+        <a href="#">ABOUT</a>
+        <a href="#">GALLERY</a>
+        <a href="#">EVENT</a>
+        <a href="#">CONTACT</a>
+      </nav>
+
+      <a class="rsvp-top" href="#">RSVP</a>
+    </header>
+
+    <main class="hero">
+      <section>
+        <h1>July 22<br>BBQ</h1>
+
+        <p class="tagline">
+          Good food, good people, good vibes.<br>
+          Join us for a summer BBQ to remember.
+        </p>
+
+        <a class="button" href="#">RSVP NOW</a>
+      </section>
+
+      <section class="art">
+        <div class="orbit" style="--r:-12deg;"></div>
+        <div class="orbit two" style="--r:18deg;"></div>
+        <div class="orbit three" style="--r:2deg;"></div>
+
+        <div class="grill">♨️</div>
+
+        <div class="date-side">
+          JULY
+          <span>22</span>
+          2026
+        </div>
+
+        <div class="plus">+</div>
+      </section>
+    </main>
+
+    <section class="bottom-bar">
+      <div class="info">
+        <div class="icon">📅</div>
+        <div>
+          <div class="label">DATE</div>
+          <div class="value">July 22, 2026</div>
+        </div>
+      </div>
+
+      <div class="info">
+        <div class="icon">🕐</div>
+        <div>
+          <div class="label">TIME</div>
+          <div class="value">1:00 PM</div>
+        </div>
+      </div>
+
+      <div class="info">
+        <div class="icon">📍</div>
+        <div>
+          <div class="label">LOCATION</div>
+          <div class="value">TBD</div>
+        </div>
+      </div>
+
+      <div class="info">
+        <div class="icon">🍴</div>
+        <div>
+          <div class="label">FOOD</div>
+          <div class="value">Burgers, BBQ, Drinks & More</div>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>Food</h2>
-      <ul>
-        <li>Burgers</li>
-        <li>Hot dogs</li>
-        <li>Chicken</li>
-        <li>Sides, snacks, and drinks</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Bring Something</h2>
-      <p>We’ll update this section with who’s bringing what.</p>
-    </section>
-
-    <section>
-      <h2>RSVP</h2>
-      <p>Let us know if you’re coming so we can plan the food.</p>
-      <a class="button" href="#">RSVP Coming Soon</a>
-    </section>
-  </main>
+  </div>
 </body>
 </html>
