@@ -4,462 +4,176 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>July 22 BBQ</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      color: #fff;
-      background:
-        radial-gradient(circle at 70% 35%, rgba(255, 180, 140, 0.22), transparent 35%),
-        radial-gradient(circle at 25% 35%, rgba(220, 255, 130, 0.18), transparent 30%),
-        linear-gradient(135deg, #111 0%, #24221f 55%, #111 100%);
-      overflow-x: hidden;
-    }
-
-    .page {
-      min-height: 100vh;
-      padding: 32px 7vw;
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 70px;
-    }
-
-    .logo {
-      width: 48px;
-      height: 48px;
-      border: 1px solid #f6d08e;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: #f6d08e;
-      font-size: 22px;
-    }
-
-    nav {
-      display: flex;
-      gap: 52px;
-      font-size: 14px;
-      letter-spacing: 2px;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      opacity: 0.85;
-    }
-
-    nav a:hover {
-      color: #f6b0aa;
-    }
-
-    .rsvp-top {
-      border: 1px solid #f6d08e;
-      padding: 12px 30px;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: 2px;
-    }
-
-    .hero {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 40px;
-    }
-
-    h1 {
-      font-size: clamp(70px, 10vw, 150px);
-      line-height: 0.92;
-      letter-spacing: -4px;
-      margin-bottom: 32px;
-      background: linear-gradient(90deg, #ff9a9e, #f7d794, #b8f26d);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .tagline {
-      font-size: clamp(18px, 2vw, 26px);
-      line-height: 1.5;
-      color: #f4f1e8;
-      margin-bottom: 40px;
-      max-width: 560px;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 18px 44px;
-      border: 1px solid #f6d08e;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: 2px;
-      font-size: 15px;
-      transition: 0.2s;
-    }
-
-    .button:hover {
-      background: rgba(255,255,255,0.08);
-      transform: translateY(-2px);
-    }
-
-    .art {
-      position: relative;
-      min-height: 460px;
-      display: grid;
-      place-items: center;
-    }
-
-    .orbit {
-      position: absolute;
-      width: 520px;
-      height: 190px;
-      border: 2px solid rgba(246, 208, 142, 0.85);
-      border-radius: 50%;
-      transform: rotate(-12deg);
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .orbit.two {
-      transform: rotate(18deg);
-      border-color: rgba(255, 154, 158, 0.8);
-      animation-delay: 1s;
-    }
-
-    .orbit.three {
-      transform: rotate(2deg);
-      border-color: rgba(184, 242, 109, 0.75);
-      animation-delay: 2s;
-    }
-
-    .grill {
-      font-size: 190px;
-      filter: drop-shadow(0 0 30px rgba(255, 180, 140, .45));
-      animation: float 5s ease-in-out infinite;
-      z-index: 2;
-    }
-
-    .date-side {
-      position: absolute;
-      right: 0;
-      bottom: 60px;
-      text-align: center;
-      letter-spacing: 5px;
-    }
-
-    .date-side span {
-      display: block;
-      font-size: 82px;
-      line-height: 0.9;
-      background: linear-gradient(90deg, #f7d794, #b8f26d);
-      -webkit-background-clip: text;
-      color: transparent;
-      letter-spacing: 0;
-    }
-
-    .plus {
-      position: absolute;
-      right: 0;
-      bottom: -20px;
-      width: 66px;
-      height: 66px;
-      border: 1px solid #f6d08e;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 44px;
-      color: #ffb199;
-    }
-
-    .bottom-bar {
-      margin-top: 60px;
-      border-top: 1px solid rgba(255,255,255,0.25);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .info {
-      padding: 28px 30px;
-      border-right: 1px solid rgba(255,255,255,0.15);
-      display: flex;
-      gap: 18px;
-      align-items: center;
-    }
-
-    .info:last-child {
-      border-right: none;
-    }
-
-    .icon {
-      font-size: 34px;
-    }
-
-    .label {
-      font-size: 13px;
-      letter-spacing: 2px;
-      color: #d9d2c7;
-      margin-bottom: 6px;
-    }
-
-    .value {
-      font-size: 17px;
-      color: #fff;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
-      50% { transform: translateY(-14px) rotate(var(--r, 0deg)); }
-    }
-
-    @media (max-width: 900px) {
-      header {
-        margin-bottom: 40px;
-      }
-
-      nav {
-        display: none;
-      }
-
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .art {
-        min-height: 320px;
-      }
-
-      .orbit {
-        width: 330px;
-        height: 120px;
-      }
-
-      .grill {
-        font-size: 130px;
-      }
-
-      .date-side {
-        position: static;
-        margin-top: 30px;
-      }
-
-      .plus {
-        display: none;
-      }
-
-      .bottom-bar {
-        grid-template-columns: 1fr;
-      }
-
-      .info {
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.15);
-      }
-    }html{
-    scroll-behavior:smooth;
-}
-
-.content-section{
-    max-width:1100px;
-    margin:0 auto;
-    padding:140px 20px;
-    border-top:1px solid rgba(255,255,255,.1);
-}
-
-.content-section h2{
-    font-size:56px;
-    margin-bottom:30px;
-
-    background:linear-gradient(90deg,#ff9a9e,#f7d794,#b8f26d);
-    -webkit-background-clip:text;
-    color:transparent;
-}
-
-.content-section p{
-    color:#d7d7d7;
-    line-height:1.8;
-    font-size:20px;
-    max-width:700px;
-}
-
-.gallery-grid{
-    margin-top:50px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:24px;
-}
-
-.gallery-card{
-    height:260px;
-    border-radius:24px;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.08);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    transition:.3s;
-}
-
-.gallery-card:hover{
-    transform:translateY(-10px);
-    background:rgba(255,255,255,.08);
-}
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <div class="page">
+  <div class="bg-glow"></div>
 
-    <header>
-      <div class="logo">🔥</div>
+  <header class="site-header">
+    <a href="#home" class="brand">
+      <span class="brand-mark">🔥</span>
+      <span>JULY 22 BBQ</span>
+    </a>
 
-   <nav>
-  <a href="#home">HOME</a>
-  <a href="#about">ABOUT</a>
-  <a href="#gallery">GALLERY</a>
-  <a href="#event">EVENT</a>
-  <a href="#contact">CONTACT</a>
-</nav>
+    <nav class="nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#rsvp">RSVP</a>
+    </nav>
 
-      <a class="rsvp-top" href="#">RSVP</a>
-    </header>
+    <a href="#rsvp" class="nav-button">RSVP</a>
+  </header>
 
-    <main id="home" class="hero">
-      <section>
+  <main>
+    <section id="home" class="hero section">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Summer Cookout • July 22, 2026</p>
         <h1>July 22<br>BBQ</h1>
-
         <p class="tagline">
-          Good food, good people, good vibes.<br>
-          Join us for a summer BBQ to remember.
+          Good food. Good people. One summer day to remember.
         </p>
 
-        <a class="button" href="#">RSVP NOW</a>
-      </section>
+        <div class="hero-actions">
+          <a href="#rsvp" class="button primary">RSVP Now</a>
+          <a href="#menu" class="button secondary">See Menu</a>
+        </div>
+      </div>
 
-      <section class="art">
-        <div class="orbit" style="--r:-12deg;"></div>
-        <div class="orbit two" style="--r:18deg;"></div>
-        <div class="orbit three" style="--r:2deg;"></div>
-
+      <div class="hero-art reveal">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="orbit orbit-three"></div>
         <div class="grill">♨️</div>
-
-        <div class="date-side">
-          JULY
-          <span>22</span>
-          2026
-        </div>
-
-        <div class="plus">+</div>
-      </section>
-    </main>
-
-    <section class="bottom-bar">
-      <div class="info">
-        <div class="icon">📅</div>
-        <div>
-          <div class="label">DATE</div>
-          <div class="value">July 22, 2026</div>
+        <div class="date-card">
+          <span>JULY</span>
+          <strong>22</strong>
+          <span>2026</span>
         </div>
       </div>
-
-      <div class="info">
-        <div class="icon">🕐</div>
-        <div>
-          <div class="label">TIME</div>
-          <div class="value">1:00 PM</div>
-        </div>
-      </div>
-
-      <div class="info">
-        <div class="icon">📍</div>
-        <div>
-          <div class="label">LOCATION</div>
-          <div class="value">TBD</div>
-        </div>
-      </div>
-
-      <div class="info">
-        <div class="icon">🍴</div>
-        <div>
-          <div class="label">FOOD</div>
-          <div class="value">Burgers, BBQ, Drinks & More</div>
-        </div>
-      </div>
-        </section>
-
-    <!-- ABOUT -->
-
-    <section id="about" class="content-section">
-      <h2>About</h2>
-      <p>
-        Every summer has one day everyone remembers.
-        July 22 is ours.
-        Come enjoy amazing BBQ, music, games, and great company.
-      </p>
     </section>
 
-    <!-- GALLERY -->
+    <section class="quick-info reveal">
+      <div>
+        <span>DATE</span>
+        <strong>July 22, 2026</strong>
+      </div>
+      <div>
+        <span>TIME</span>
+        <strong>1:00 PM</strong>
+      </div>
+      <div>
+        <span>LOCATION</span>
+        <strong>TBD</strong>
+      </div>
+      <div>
+        <span>VIBE</span>
+        <strong>Food, Music & Games</strong>
+      </div>
+    </section>
 
-    <section id="gallery" class="content-section">
-      <h2>Gallery</h2>
+    <section id="about" class="section split">
+      <div class="section-heading reveal">
+        <p class="eyebrow">About</p>
+        <h2>A clean little cookout site for the family.</h2>
+      </div>
+      <div class="section-text reveal">
+        <p>
+          July 22 is all about bringing family and friends together for food,
+          music, games, laughs, and a summer day that feels easy.
+        </p>
+      </div>
+    </section>
+
+    <section id="menu" class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Menu</p>
+        <h2>What we’re throwing on the grill.</h2>
+      </div>
+
+      <div class="card-grid">
+        <article class="card reveal">
+          <span>🍔</span>
+          <h3>Burgers</h3>
+          <p>Classic cookout burgers with toppings on the side.</p>
+        </article>
+        <article class="card reveal">
+          <span>🌭</span>
+          <h3>Hot Dogs</h3>
+          <p>Simple, easy, and mandatory at any real BBQ.</p>
+        </article>
+        <article class="card reveal">
+          <span>🥩</span>
+          <h3>BBQ</h3>
+          <p>Grilled meats, sides, snacks, and whatever people bring.</p>
+        </article>
+        <article class="card reveal">
+          <span>🥤</span>
+          <h3>Drinks</h3>
+          <p>Cold drinks, ice, coolers, and enough water for the day.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="schedule" class="section split">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Schedule</p>
+        <h2>Simple plan. No stress.</h2>
+      </div>
+
+      <div class="timeline reveal">
+        <div>
+          <span>1:00 PM</span>
+          <p>Arrive, settle in, music starts.</p>
+        </div>
+        <div>
+          <span>2:00 PM</span>
+          <p>Grill gets going.</p>
+        </div>
+        <div>
+          <span>4:00 PM</span>
+          <p>Games, photos, and more food.</p>
+        </div>
+        <div>
+          <span>Sunset</span>
+          <p>Chill, clean up, and enjoy the evening.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Gallery</p>
+        <h2>Photos coming soon.</h2>
+      </div>
 
       <div class="gallery-grid">
-        <div class="gallery-card">Photo Coming Soon</div>
-        <div class="gallery-card">Photo Coming Soon</div>
-        <div class="gallery-card">Photo Coming Soon</div>
+        <div class="gallery-card reveal">Photo Coming Soon</div>
+        <div class="gallery-card reveal">Photo Coming Soon</div>
+        <div class="gallery-card reveal">Photo Coming Soon</div>
       </div>
     </section>
 
-    <!-- EVENT -->
-
-    <section id="event" class="content-section">
-      <h2>Event</h2>
-
-      <p>
-        📅 July 22, 2026<br><br>
-
-        🕐 1:00 PM<br><br>
-
-        🍔 Burgers<br>
-        🌭 Hot Dogs<br>
-        🥩 BBQ<br>
-        🥤 Drinks<br>
-        🎵 Music<br>
-        ⚽ Games
-      </p>
+    <section id="rsvp" class="section rsvp">
+      <div class="reveal">
+        <p class="eyebrow">RSVP</p>
+        <h2>Let us know if you’re coming.</h2>
+        <p>
+          We’ll update this section with the real RSVP link later. For now,
+          this button can go to a Google Form, text message, or group chat.
+        </p>
+        <a class="button primary" href="mailto:youremail@example.com?subject=July%2022%20BBQ%20RSVP">RSVP Coming Soon</a>
+      </div>
     </section>
+  </main>
 
-    <!-- CONTACT -->
+  <footer>
+    <p>July 22 BBQ • Built with GitHub Pages</p>
+  </footer>
 
-    <section id="contact" class="content-section">
-      <h2>RSVP</h2>
-
-      <p>
-        Let us know if you'll be joining us.
-        We can't wait to see everyone!
-      </p>
-
-      <br><br>
-
-      <a class="button" href="#">
-        RSVP NOW
-      </a>
-    </section>
-
-  </div>
+  <script src="script.js"></script>
 </body>
 </html>
