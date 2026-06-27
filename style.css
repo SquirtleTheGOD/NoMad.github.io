@@ -391,3 +391,16 @@ footer {
     padding: 82px 7vw;
   }
 }
+.map-link{
+  display:inline-block;
+  margin-top:10px;
+  color:#f7d794;
+  font-size:15px;
+  letter-spacing:1px;
+  transition:.25s;
+}
+
+.map-link:hover{
+  color:white;
+  transform:translateX(6px);
+}
