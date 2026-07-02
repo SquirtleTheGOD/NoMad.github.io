@@ -333,7 +333,6 @@ footer {
   transform: none;
   transition: 0.7s ease;
 }
-}
 
 .reveal.visible {
   opacity: 1;
