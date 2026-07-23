@@ -465,3 +465,6 @@ footer p {
 .gallery-card:hover img {
   transform: scale(1.05);
 }
+.section-text p + p {
+  margin-top: 24px;
+}
